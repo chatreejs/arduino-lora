@@ -1,5 +1,4 @@
 # Arduino UNO LoRa
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 ต้องกำหนดขาเชื่อมต่อ `LoRa` เข้ากับ `Arduino` ตามตารางนี้
 
