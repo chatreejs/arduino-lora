@@ -47,7 +47,7 @@ An [Arduino](https://arduino.cc/) library for sending and receiving data using [
 
 ```sh
 cd ~/Documents/Arduino/libraries/
-git clone https://github.com/sandeepmistry/arduino-LoRa LoRa
+git clone https://github.com/chanonsersa/arduino-LoRa LoRa
 ```
 
 ## API
