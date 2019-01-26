@@ -7,9 +7,9 @@
 | :---------------------: | :------:|
 | VCC | 3.3V |
 | GND | GND |
-| SCK | SCK |
-| MISO | MISO |
-| MOSI | MOSI |
+| SCK | 13 / SCK |
+| MISO | 12 / MISO |
+| MOSI | 11 / MOSI |
 | NSS | 10 |
 | NRESET | 9 |
 | DIO0 | 8 |
