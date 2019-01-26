@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/sandeepmistry/arduino-LoRa.svg?branch=master)](https://travis-ci.org/sandeepmistry/arduino-LoRa)
 
-An [Arduino](https://arduino.cc/) library for sending and receiving data using [LoRa](https://www.lora-alliance.org/) radios.
+[Arduino](https://arduino.cc/) library สำหรับการรับและการส่งข้อมูลโดยใช้คลื่นสัญญาณ [LoRa](https://www.lora-alliance.org/)
 
 ## Compatible Hardware
 
@@ -14,25 +14,25 @@ An [Arduino](https://arduino.cc/) library for sending and receiving data using [
    * **NOTE:** Requires firmware v1.1.6 or later on the on-board Murata module. Please use the [MKRWANFWUpdate_standalone example](https://github.com/arduino-libraries/MKRWAN/blob/master/examples/MKRWANFWUpdate_standalone/MKRWANFWUpdate_standalone.ino) from latest [MKRWAN library](https://github.com/arduino-libraries/MKRWAN) release to update the firmware.
    * **WARNING**: [LoRa.onReceive(...)](https://github.com/sandeepmistry/arduino-LoRa/blob/master/API.md#register-callback) and [LoRa.recieve()](https://github.com/sandeepmistry/arduino-LoRa/blob/master/API.md#receive-mode) is not compatible with this board!
 
-### Semtech SX1276/77/78/79 wiring
+### Semtech SX1276/77/78/79 wiring (การเดินสายไฟ)
 
 | Semtech SX1276/77/78/79 | Arduino |
 | :---------------------: | :------:|
 | VCC | 3.3V |
 | GND | GND |
-| SCK | SCK |
-| MISO | MISO |
-| MOSI | MOSI |
+| SCK | 13 / SCK |
+| MISO | 12 / MISO |
+| MOSI | 11 / MOSI |
 | NSS | 10 |
 | NRESET | 9 |
-| DIO0 | 2 |
+| DIO0 | 8 |
 
 
-`NSS`, `NRESET`, and `DIO0` pins can be changed by using `LoRa.setPins(ss, reset, dio0)`. `DIO0` pin is optional, it is only needed for receive callback mode. If `DIO0` pin is used, it **must** be interrupt capable via [`attachInterrupt(...)`](https://www.arduino.cc/en/Reference/AttachInterrupt).
+`NSS`, `NRESET`, และ `DIO0` pins สามารถเปลี่ยนได้โดยใช้ฟังก์ชัน `LoRa.setPins(ss, reset, dio0)` pin `DIO0` เป็น optional เอาไว้ใช้เฉพาะการรับแบบ callback mode ถ้าใช้ pin `DIO0` **จะต้อง** สามารถ interrupt ผ่าน [`attachInterrupt(...)`] ได้(https://www.arduino.cc/en/Reference/AttachInterrupt).
 
 **NOTES**:
- * Some boards (like the Arduino Nano), cannot supply enough current for the SX127x in TX mode. This will cause lockups when sending, be sure to use an external 3.3V supply that can provide at least 120mA's when using these boards.
- * If your Arduino board operates at 5V, like the Arduino Uno, Leonardo or Mega, you will need to use a level converter for the wiring to the Semtech SX127x module. Most Semtech SX127x breakout boards do not have logic level converters built-in.
+ * บอร์ดบางบอร์ด (เช่น Arduino Nano) ไม่สามารถจ่ายกระแสไฟได้อย่างเพียงพอให้ SX127x ในโหมด TX มันทำให้เกิดการ lockups เมื่อทำการส่งต้องแน่ใจว่าใช้แหล่งจ่ายไฟจากด้านนอก 3.3 V และใช้กระแสอย่างน้อย 120mA เมื่อใช้บอร์ดเหล่านี้
+ * ถ้าบอร์ดมีไฟเลี้ยง 5V เช่น the Arduino Uno, Leonardo หรือ Mega จำเป็นที่จะต้องใช้ตัวแปลงแรงดันในการเดินวงจรไปยังโมดูล Semtech SX127x เพราะ โมดูล Semtech SX127x ไม่มีตัวแปลงแรงดันในตัว
 
 ## Installation
 
@@ -62,30 +62,31 @@ See [examples](examples) folder.
 
 **1) Initilizating the LoRa radio is failing**
 
-Please check the wiring you are using matches what's listed in [Semtech SX1276/77/78/79 wiring](#semtech-sx1276777879-wiring). You can also use `LoRa.setPins(ss, reset, dio0)` to change the default pins used. Some logic level converters cannot operate at 8 MHz, you can call `LoRa.setSPIFrequency(frequency)` to lower the SPI frequency used by the library. Both API's must be called before `LoRa.begin(...)`.
+ให้ตรวจสอบการเดินสายไฟของคุณว่าตรงกับตารางหรือไม่
+[Semtech SX1276/77/78/79 wiring](#semtech-sx1276777879-wiring)คุณสามารถใช้ฟังก์ชัน `LoRa.setPins(ss, reset, dio0)` เพื่อเปลี่ยน pin เดิมได้ วงจรแปลงแรงดันบางตัวไม่สามารถทำงานที่ความถี่ 8 MHz ได้ คุณสามารถใช้คำสั่ง `LoRa.setSPIFrequency(frequency)` เพื่อลดความถี่ SPI และต้องเรียกใช้ API ทั้งสองอันนี้ก่อน `LoRa.begin(...)`
 
 **2) Can other radios see the packets I'm sending?**
 
-Yes, any LoRa radio that are configured with the same radio parameters and in range can see the packets you send.
+ได้ เพราะ ทุกคลื่นสัญญาณ LoRa ที่มีการกำหนดค่าพารามิเตอร์เดียวกันและอยู่ในในระยะทางที่ packet สามารถส่งได้ จะสามารถเห็น packets ที่ส่งออกไป
 
 **3) Is the data I'm sending encrypted?**
 
-No, all data is sent unencrypted. If want your packet data to be encrypted, you must encrypt it before passing it into this library, followed by decrypting on the receiving end.
+ไม่ เพราะทุกๆข้อมูลที่ส่งออกไปนั้นไม่มีการเข้ารหัส ถ้าต้องการให้ packet มีการเข้ารหัส คุณต้องทำการเข้ารหัสข้อมูลก่อนแล้วค่อยเขียนลงใน library ตามด้วยการถอดรหัสที่จุดรับข้อมูล
 
 **4) How does this library differ from LoRaWAN libraries?**
 
-This library exposes the LoRa radio directly, and allows you to send data to any radios in range with same radio parameters. All data is broadcasted and there is no addressing. LoRaWAN builds on top of LoRA, but adds addressing, encryption, and additional layers. It also requires a LoRaWAN gateway and LoRaWAN network and application server.
+ไลบรารีนี้จะกระจายสัญญาณ LoRa โดยตรง และให้ส่งข้อมูลไปถึงตัวรับได้ในระยะที่ส่งถึงและมี parameters เดียวกัน ทุกข้อมูลจะเป็นการ broadcast ไมมีการกำหนด address ส่วน LoRaWAN สร้างอยู่บน LoRA แต่มีการเพิ่ม address การเข้ารหัส และ การลำดับชั้น layer ซึ่งมันต้องการ LoRaWAN gateway และ LoRaWAN network และ application server
 
 **5) Does this library honor duty cycles?**
 
-No, you have to manage it by your self.
+ไม่ คุณต้องจัดการด้วยตัวเอง
 
 **6) Which frequencies can I use?**
 
-You can use [this table](https://www.thethingsnetwork.org/wiki/LoRaWAN/Frequencies/By-Country) to lookup the available frequencies by your country. The selectable frequency also depends on your hardware. You can lookup the data sheet or ask your supplier.
+คุณสามารถใช้[ตารางนี้](https://www.thethingsnetwork.org/wiki/LoRaWAN/Frequencies/By-Country)เพื่อดูคลื่นความถี่ที่สามารถใช้ได้ในประเทศ การเลือกใช้คลื่นความถี่อยู่ที่ตัว hardware ซึ่งสามารถดูได้จาก data sheet หรือถามจาก supplier
 
-Please also notice the frequency dependent duty cycles for legal reasons!
+โปรดสังเกตความถี่ที่ใช้ด้วยเพราะมีผลต่อกฎหมาย
 
 ## License
 
-This libary is [licensed](LICENSE) under the [MIT Licence](https://en.wikipedia.org/wiki/MIT_License).
+Libary นี้[ได้รับอณุญาติ](LICENSE) ภายใต้ [MIT Licence](https://en.wikipedia.org/wiki/MIT_License).
