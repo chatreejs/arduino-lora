@@ -28,7 +28,7 @@
 | DIO0 | 8 |
 
 
-`NSS`, `NRESET`, และ `DIO0` pins สามารถเปลี่ยนได้โดยใช้ฟังก์ชัน `LoRa.setPins(ss, reset, dio0)` pin `DIO0` เป็น optional เอาไว้ใช้เฉพาะการรับแบบ callback mode ถ้าใช้ pin `DIO0` **จะต้อง** สามารถ interrupt ผ่าน [`attachInterrupt(...)`] ได้(https://www.arduino.cc/en/Reference/AttachInterrupt).
+`NSS`, `NRESET`, และ `DIO0` pins สามารถเปลี่ยนได้โดยใช้ฟังก์ชัน `LoRa.setPins(ss, reset, dio0)` pin `DIO0` เป็น optional เอาไว้ใช้เฉพาะการรับแบบ callback mode ถ้าใช้ pin `DIO0` **จะต้อง** สามารถ interrupt ผ่าน [`attachInterrupt(...)`](https://www.arduino.cc/en/Reference/AttachInterrupt) ได้
 
 **NOTES**:
  * บอร์ดบางบอร์ด (เช่น Arduino Nano) ไม่สามารถจ่ายกระแสไฟได้อย่างเพียงพอให้ SX127x ในโหมด TX มันทำให้เกิดการ lockups เมื่อทำการส่งต้องแน่ใจว่าใช้แหล่งจ่ายไฟจากด้านนอก 3.3 V และใช้กระแสอย่างน้อย 120mA เมื่อใช้บอร์ดเหล่านี้
