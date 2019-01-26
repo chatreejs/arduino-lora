@@ -25,7 +25,7 @@
 ```
 LoRa.begin(frequency);
 ```
-- ??????????????????????????????????????????????? ????????????????????????????????
+- เป็นฟังก์ชันที่ใช้กำหนดความถี่ของคลื่นที่จะใช้งาน
     - `frequency` คือ คลื่นความถี่ของที่จะใช้งานมีหน่วยเป็น Hz (`433E6`, `866E6`, `915E6`)
     - สำหรับประเทศไทยให้กำหนดเป็น 433MHz หรือใส่ในโค้ดว่า 433E6
 
@@ -92,7 +92,9 @@ Returns SNR โดยประมาณของ packet ที่ได้รั
 ```
 long freqErr = LoRa.packetFrequencyError();
 ```
-Returns the frequency error of the received packet in Hz. The frequency error is the frequency offset between the receiver centre frequency and that of an incoming LoRa signal.
+   - Frequency error คือ offset ระหว่างความถี่ของตัวรับสัญญาณและความถี่ของสัญญาณที่เข้ามา
+
+Returns frequency error ของ packet ที่ได้รับเป็น Hz
 
 ### Available
 ```
@@ -117,13 +119,13 @@ Returns the next byte in the packet or -1 if no bytes are available.
 
 ## Other radio modes
 ### Idle mode
-Put the radio in idle (standby) mode.
+ปรับให้ทำงาน idle (standby) mode
 ```
 LoRa.idle();
 ```
 
 ### Sleep mode
-Put the radio in sleep mode.
+ปรับให้เข้าสู่ sleep mode
 ```
 LoRa.sleep();
 ```
@@ -142,43 +144,43 @@ Supported values are `2` to `20` for `PA_OUTPUT_PA_BOOST_PIN`, and `0` to `14` f
 Most modules have the PA output pin connected to PA BOOST,
 
 ### Frequency
-Change the frequency of the radio.
+ตั้งค่าคลื่นความถี่ของโมดูล
 ```
 LoRa.setFrequency(frequency);
 ```
-   - `frequency` - frequency in Hz (433E6, 866E6, 915E6)
+   - `frequency` - คลื่นความถี่เป็น Hz (`433E6`, `866E6`, `915E6`)
    
 ### Spreading Factor
-Change the spreading factor of the radio.
+ตั้งค่า spreading factor ของโมดูล
 ```
 LoRa.setSpreadingFactor(spreadingFactor);
 ```
-   - `spreadingFactor` - spreading factor, defaults to `7`
-Supported values are between `6` and `12`. If a spreading factor of `6` is set, implicit header mode must be used to transmit and receive packets.
+   - `spreadingFactor` - spreading factor, ค่าเริ่มต้นคือ `7`
+สามารถตั้งค่าได้ระหว่าง `6` ถึง `12` ถ้า spreading factor คือ `6` implicit header mode จะถูกใช้ในการรับส่ง packets
 
 ### Signal Bandwidth
-Change the signal bandwidth of the radio.
+ตั้งค่า bandwidth ของโมดูล
 ```
 LoRa.setSignalBandwidth(signalBandwidth);
 ```
-   - `signalBandwidth` - signal bandwidth in Hz, defaults to `125E3`.
-Supported values are `7.8E3`, `10.4E3`, `15.6E3`, `20.8E3`, `31.25E3`, `41.7E3`, `62.5E3`, `125E3`, and `250E3`.
+   - `signalBandwidth` - signal bandwidth เป็น Hz, ค่าเริ่มต้นคือ `125E3`.
+ค่าที่สามารถตั้งได้ คือ `7.8E3`, `10.4E3`, `15.6E3`, `20.8E3`, `31.25E3`, `41.7E3`, `62.5E3`, `125E3`, และ `250E3`
 
 ### Coding Rate
-Change the coding rate of the radio.
+ตั้งค่า coding rate ของโมดูล
 ```
 LoRa.setCodingRate4(codingRateDenominator);
 ```
-   - `codingRateDenominator` - denominator of the coding rate, defaults to `5`
-Supported values are between `5` and `8`, these correspond to coding rates of `4/5` and `4/8`. The coding rate numerator is fixed at `4`.
+   - `codingRateDenominator` - ตัวส่วนของ coding rate, ค่าเริ่มต้นคือ `5`
+สามารถตั้งค่าได้ระหว่าง `5` ถึง `8` ตัวอย่างเช่น `4/5` และ `4/8` ตัวเศษของ coding rate จะมีค่าเป็น `4` เสมอ
 
 ### Preamble Length
-Change the preamble length of the radio.
+ตั้งค่าความยาว preamble ของโมดูล
 ```
 LoRa.setPreambleLength(preambleLength);
 ```
-   - `preambleLength` - preamble length in symbols, defaults to `8`
-Supported values are between `6` and `65535`.
+   - `preambleLength` - ความยาวของ preamble, ค่าเริ่มต้นคือ `8`
+สามารถตั้งค่าได้ตั้งแต่ `6` ถึง `65535`.
 
 ### Sync Word
 Change the sync word of the radio.
@@ -188,7 +190,7 @@ LoRa.setSyncWord(syncWord);
    - `syncWord` - byte value to use as the sync word, defaults to `0x12`
    
 ### CRC
-Enable or disable CRC usage, by default a CRC is not used.
+เปิดหรือปิด CRC โดยค่าเริ่มต้น CRC จะปิดอยู่
 ```
 LoRa.enableCrc();
 
