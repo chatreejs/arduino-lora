@@ -52,7 +52,7 @@ git clone https://github.com/chanonsersa/arduino-LoRa LoRa
 
 ## API
 
-See [API.md](API.md).
+See [API.md](examples/API.md).
 
 ## Examples
 
