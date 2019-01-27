@@ -39,11 +39,9 @@ void loop() {
       break;
     case 1:
       Serial.println("Sensor offline");
+      break;
     case 0:
       Serial.print("Sending packet: ");
-      if(th.Read() == 0){
-        //
-      }
       Serial.println(counter);
       
       // send packet
