@@ -61,7 +61,7 @@ void led_off() {
 }
 
 void led_show(byte number) {
-  if (number <= 128) {
+  if (number <= 255) {
     byte a = number % 2;      
     byte b = number / 2 % 2;     
     byte c = number / 4 % 2;        
