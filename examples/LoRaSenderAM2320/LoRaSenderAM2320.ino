@@ -17,7 +17,6 @@ void setup() {
   while (!Serial);
 
   Serial.println("LoRa Node - Sender #1");
-
   LoRa.setPins(NSS_PIN, NRESET_PIN, DIO0_PIN);
   if (!LoRa.begin(433E6)) {
     Serial.println("Starting LoRa failed!");
@@ -41,19 +40,12 @@ void loop() {
       Serial.println("Sensor offline");
       break;
     case 0:
-      Serial.print("Sending packet: ");
-      Serial.println(counter);
-      
-      // send packet
-      LoRa.beginPacket();
-      LoRa.print("Humidity: ");
-      LoRa.print(th.h);
-      LoRa.print("%, temperature: ");
-      LoRa.print(th.t);
-      LoRa.print("°C");
-      LoRa.endPacket();
-      counter++;
+      Serial.print("Humidity: ");
+      Serial.print(th.h);
+      Serial.print("%, temperature: ");
+      Serial.print(th.t);
+      Serial.println("°C");
       break;
   }
-  delay(3000);
+  delay(200);
 }
