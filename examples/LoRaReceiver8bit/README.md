@@ -6,8 +6,8 @@
 ## Hardware
 * [Arduino UNO R3](https://store.arduino.cc/usa/arduino-uno-rev3)
 * [Semtech SX1276/77/78/79](http://www.semtech.com/apps/product.php?pn=SX1276)
-* LED 9 หลอด
-* ตัวต้านทาน 220 โอห์ม 9 ตัว
+* LED สีแดง 8 หลอด
+* ตัวต้านทาน 220 โอห์ม 8 ตัว
 
 ## Wiring
 ![diagram](https://github.com/Chanonsersa/Arduino-LoRa/blob/Chanonsersa-8bitLED/examples/LoRaReceiver8bit/8Bit-LED-diagram.png "8 bit LED display")
@@ -23,10 +23,9 @@ void setup() {
     pinMode(7,OUTPUT);
     pinMode(A0,OUTPUT);
     pinMode(A1,OUTPUT);
-    pinMode(A2,OUTPUT);
     ...
 ```
-กำหนด output pin ให้กับขา 2 - 7 และ A0 - A2
+กำหนด output pin ให้กับขา 2 - 7 และ A0 และ A1
 
 และจะใช้ฟังก์ชัน `led_show(number)` ในการเรียกใช้งาน
 - โดย `number` จะเป็นค่าตั้งแต่ `0` - `255`
