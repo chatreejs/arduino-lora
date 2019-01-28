@@ -45,7 +45,7 @@ void loop() {
     digitalWrite(A2,1);
     led_show(-(LoRa.packetRssi()));
   }
-  delay(100);
+  delay(200);
   digitalWrite(A2,0);
 }
 
