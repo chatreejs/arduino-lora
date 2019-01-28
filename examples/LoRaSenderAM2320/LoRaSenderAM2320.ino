@@ -40,12 +40,17 @@ void loop() {
       Serial.println("Sensor offline");
       break;
     case 0:
-      Serial.print("Humidity: ");
-      Serial.print(th.h);
-      Serial.print("%, temperature: ");
-      Serial.print(th.t);
-      Serial.println("°C");
+      LoRa.beginPacket();
+      LoRa.print("Humidity: ");
+      LoRa.print(th.h);
+      LoRa.print("%, temperature: ");
+      LoRa.print(th.t);
+      LoRa.print("°C");
+      LoRa.endPacket();
+      Serial.print("Send packet #");
+      Serial.println(counter);
+      counter++;
       break;
   }
-  delay(200);
+  delay(5000);
 }
