@@ -10,7 +10,7 @@
 * ตัวต้านทาน 220 โอห์ม 8 ตัว
 
 ## Wiring
-![diagram](https://github.com/Chanonsersa/Arduino-LoRa/blob/Chanonsersa-8bitLED/examples/LoRaReceiver8bit/8Bit-LED-diagram.png "8 bit LED display")
+![diagram](https://github.com/Chanonsersa/Arduino-LoRa/blob/master/examples/LoRaReceiver8bit/8Bit-LED-diagram.png "8 bit LED display")
 
 ## Code
 ```cpp
