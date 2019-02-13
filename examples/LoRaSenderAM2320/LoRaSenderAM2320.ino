@@ -1,8 +1,9 @@
 #include <SPI.h>
 #include <LoRa.h>
-#include <Wire.h>
-#include <AM2320.h>
-AM2320 th;
+#include "Adafruit_Sensor.h"
+#include "Adafruit_AM2320.h"
+
+Adafruit_AM2320 am2320 = Adafruit_AM2320();
 
 int counter = 0;
 
@@ -27,30 +28,20 @@ void setup() {
   LoRa.setSpreadingFactor(12);
   LoRa.setPreambleLength(8);
   LoRa.enableCrc();
-  //LoRa.setTimeout(100);
   LoRa.setTxPower(17);
+  am2320.begin();
 }
 
 void loop() {
-  switch (th.Read()) {
-    case 2:
-      Serial.println("CRC failed");
-      break;
-    case 1:
-      Serial.println("Sensor offline");
-      break;
-    case 0:
-      LoRa.beginPacket();
-      LoRa.print("Humidity: ");
-      LoRa.print(th.h);
-      LoRa.print("%, temperature: ");
-      LoRa.print(th.t);
-      LoRa.print("°C");
-      LoRa.endPacket();
-      Serial.print("Send packet #");
-      Serial.println(counter);
-      counter++;
-      break;
-  }
-  delay(5000);
+  LoRa.beginPacket();
+  LoRa.print("Humidity: ");
+  LoRa.print(am2320.readHumidity());
+  LoRa.print("%, temperature: ");
+  LoRa.print(am2320.readTemperature());
+  LoRa.print("°C");
+  LoRa.endPacket();
+  Serial.print("Send packet #");
+  Serial.println(counter);
+  counter++;
+  delay(2000);
 }
